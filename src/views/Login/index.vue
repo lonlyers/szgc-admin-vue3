@@ -8,6 +8,7 @@
 <script setup>
 import singleSign from '@/utils/singleSign'
 import { useRouter } from 'vue-router'
+
 const router = useRouter()
 // 免登录逻辑
 if (process.env.NODE_ENV === 'development') {

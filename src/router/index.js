@@ -1,5 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import defaultRoutes from './default'
+import eventEmitter from '@/EventEmitter'
+
 const router = createRouter({
     // 4. 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。
     history: createWebHashHistory(),
@@ -32,4 +34,9 @@ router.beforeEach((to, from, next) => {
 
     next()
 })
+eventEmitter.on('API:UN_AUTH', () => {
+    router.push('/login')
+    sessionStorage.clear()
+})
+
 export default router

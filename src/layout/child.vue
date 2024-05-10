@@ -1,11 +1,22 @@
 <template>
     <div class="child-container">
-        <router-view v-slot="{ Component }">
+        <router-view v-slot="{ Component, route }">
             <transition
-                name="child-fade"
-                mode="out-in">
+                name="fade"
+                mode="out-in"
+                v-if="!route.meta.keepAlive">
+                <component
+                    :is="Component"
+                    :key="route.name" />
+            </transition>
+            <transition
+                name="fade"
+                mode="out-in"
+                v-if="route.meta.keepAlive">
                 <keep-alive>
-                    <component :is="Component" />
+                    <component
+                        :is="Component"
+                        :key="route.name" />
                 </keep-alive>
             </transition>
         </router-view>

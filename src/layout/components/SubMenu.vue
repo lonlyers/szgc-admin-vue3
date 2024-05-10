@@ -23,12 +23,14 @@
 </template>
 
 <script setup>
+import { toRef } from 'vue'
 const props = defineProps({
     menuInfo: {
         type: Object,
         default: () => ({})
     }
 })
+const menuInfo = toRef(props, 'menuInfo')
 </script>
 
 <style lang="less" scoped></style>

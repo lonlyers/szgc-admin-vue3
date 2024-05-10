@@ -9,12 +9,23 @@
                 v-model:openKeys="openKeys"
                 :sildbarMenu="sildbarMenu" />
             <div class="component-box">
-                <router-view v-slot="{ Component }">
+                <router-view v-slot="{ Component, route }">
                     <transition
                         name="fade"
-                        mode="out-in">
+                        mode="out-in"
+                        v-if="!route.meta.keepAlive">
+                        <component
+                            :is="Component"
+                            :key="route.name" />
+                    </transition>
+                    <transition
+                        name="fade"
+                        mode="out-in"
+                        v-if="route.meta.keepAlive">
                         <keep-alive>
-                            <component :is="Component" />
+                            <component
+                                :is="Component"
+                                :key="route.name" />
                         </keep-alive>
                     </transition>
                 </router-view>

@@ -4,6 +4,10 @@ import path from 'path'
 import eslintPlugin from 'vite-plugin-eslint'
 import removeConsole from 'vite-plugin-remove-console'
 export default defineConfig({
+    define: {
+        // enable hydration mismatch details in production build
+        __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'true'
+    },
     base: process.env.NODE_ENV === 'production' ? './' : '/',
     lintOnSave: false,
     plugins: [
@@ -28,32 +32,12 @@ export default defineConfig({
         open: true,
         host: true,
         proxy: {
-            '/drsp-auth': {
+            '/drsp-api': {
                 // 统一登录
-                target: 'http://192.168.2.172:4888',
+                target: 'http://192.168.2.229:5300',
                 changeOrigin: true,
                 ws: true
                 // pathRewrite: { '^/drsp-auth': '' }
-            },
-            '/drsp-upms': {
-                // 统一登录
-                target: 'http://192.168.2.172:4888',
-                changeOrigin: true,
-                ws: true
-                // pathRewrite: { '^/drsp-auth': '' }
-            },
-            '/drsp-patrol': {
-                // 统一登录
-                target: 'http://192.168.2.172:4888',
-                changeOrigin: true,
-                ws: true
-                // pathRewrite: { '^/drsp-auth': '' }
-            },
-            '/drsp-storage': {
-                target: 'http://192.168.2.172:4888',
-                changeOrigin: true,
-                ws: true
-
             }
         }
     },

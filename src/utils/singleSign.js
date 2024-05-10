@@ -1,9 +1,10 @@
 import request from './request'
 import { getToken, setToken } from './tokenInfo'
-const urlProxy = '/drsp-auth'
+import { urlProxy, productCode } from '@/config'
 const ticketUrl = '/api/auth/ssoLogin'
 const devUrl = '/api/auth/ssoLogin/dev'
-const productCode = 'drspQinCun'
+import eventEmitter from '@/EventEmitter'
+
 // 获取地址栏?后面的参数
 const searchParams = window.location.search
     .slice(1)
@@ -39,6 +40,7 @@ const singleSign = async (tel) => {
         })
         setToken(message.token)
         sessionStorage.setItem('userInfo', JSON.stringify(message.userInfo))
+
         return true
     } catch (error) {
         console.warn(error)

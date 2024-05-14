@@ -7,15 +7,14 @@
 
 <script setup>
 import singleSign from '@/utils/singleSign'
-import { useRouter } from 'vue-router'
 
-const router = useRouter()
+import { getAuth } from '@/utils/getAuth'
+import eventEmitter from '@/EventEmitter'
 // 免登录逻辑
 if (process.env.NODE_ENV === 'development') {
     singleSign(15036373894).then((val) => {
-        router.push({
-            path: '/Home'
-        })
+        getAuth()
+        eventEmitter.emit('LOGIN:SUCCESS')
     })
 }
 </script>

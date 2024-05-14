@@ -2,7 +2,8 @@ class EventEmitter {
     listeners = {
         'API:UN_AUTH': new Set(),
         'MENU:PERMISSIONS': new Set(),
-        'MENU:UN_AUTH': new Set()
+        'MENU:UN_AUTH': new Set(),
+        'LOGIN:SUCCESS': new Set()
     }
 
     on(event, callback) {

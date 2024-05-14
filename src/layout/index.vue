@@ -38,7 +38,7 @@ import { ref, watch } from 'vue'
 
 import HeadMenu from './components/HeadMenu.vue'
 import SiderMenu from './components/SiderMenu.vue'
-import routes from '@/router/default'
+import { authRoutes } from '@/router/index'
 import { cloneDeep } from 'lodash'
 import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
@@ -103,7 +103,7 @@ const useMenu = (routes) => {
         selectedCldKey
     }
 }
-const { headerMenu, selectedParKey, sildbarMenu, selectedCldKey, openKeys } = useMenu(routes)
+const { headerMenu, selectedParKey, sildbarMenu, selectedCldKey, openKeys } = useMenu(authRoutes)
 </script>
 <style lang="less" scoped>
 .layout-container {

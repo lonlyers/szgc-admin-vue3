@@ -3,21 +3,23 @@ import ChildLayout from '@/layout/child.vue'
 // 父级路由名字大写跟文件夹的名字保持一致
 const routes = [
     {
-        path: '/Home',
+        path: '/home',
         name: 'Home',
         meta: {
             title: '首页',
-            icon: 'iconfont icon-telescope'
+            icon: 'iconfont icon-telescope',
+            key: 'jhst1'
         },
         component: MainLayout,
-        redirect: '/Home/index1',
+        redirect: 'home/index1',
         children: [
             {
                 path: 'index1',
                 name: '',
                 meta: {
                     title: '首页1',
-                    icon: 'iconfont icon-intelligent'
+                    icon: 'iconfont icon-intelligent',
+                    key: 'jhst-bigScreen1'
                 },
                 component: () => import('@/views/Home/index1.vue')
             },
@@ -37,7 +39,8 @@ const routes = [
                 redirect: '/Home/child/index',
                 meta: {
                     title: '二级菜单',
-                    icon: 'iconfont icon-intelligent'
+                    icon: 'iconfont icon-intelligent',
+                    key: 'jhst1'
                 },
                 component: ChildLayout,
                 children: [
@@ -46,6 +49,7 @@ const routes = [
                         name: '',
                         meta: {
                             title: '三级菜单',
+                            key: 'jhst1',
                             icon: 'iconfont icon-intelligent'
                         },
                         component: () => import('@/views/Home/HomeChild/child.vue')
@@ -54,6 +58,5 @@ const routes = [
             }
         ]
     }
-
 ]
 export default routes

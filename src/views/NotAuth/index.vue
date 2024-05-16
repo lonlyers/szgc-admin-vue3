@@ -26,7 +26,7 @@ let timer = setInterval(() => {
 .errpage-container {
     width: 100%;
     height: 100%;
-    background-image: url('@/assets/img/404-d.png');
+    background-image: url('@/assets/img/401-d.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: 1104px 715px;

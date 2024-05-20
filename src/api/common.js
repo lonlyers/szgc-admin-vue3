@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-const urlPorxy = '/drsp-storage'
+import { urlPorxy } from '@/config'
 // 上传文件
 export function upFile(data) {
     return request({

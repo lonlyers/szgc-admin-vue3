@@ -25,22 +25,34 @@ const queryParams = queryStr
     : {}
 
 const haveTicket = searchParams.ticket || queryParams.ticket
+const haveOtherToken = searchParams.token || queryParams.token
 // 免登
 const singleSign = async (tel) => {
     if (getToken()) return true
     try {
-        const { message } = await request({
-            url: urlProxy + (haveTicket ? ticketUrl : devUrl),
-            data: {
-                ticket: haveTicket,
-                userName: haveTicket ? null : tel,
-                systemCode: productCode,
-                productCode: productCode
-            }
-        })
-        setToken(message.token)
-        sessionStorage.setItem('userInfo', JSON.stringify(message.userInfo))
-
+        if (haveOtherToken) {
+            setToken(haveOtherToken)
+            const { message } = await request({
+                url: '/dh-api/api/upms/user/getUserInfo',
+                data: {
+                    token: haveOtherToken
+                }
+            })
+            setToken(message.token)
+            sessionStorage.setItem('userInfo', JSON.stringify(message.userInfo))
+        } else {
+            const { message } = await request({
+                url: urlProxy + (haveTicket ? ticketUrl : devUrl),
+                data: {
+                    ticket: haveTicket,
+                    userName: haveTicket ? null : tel,
+                    systemCode: productCode,
+                    productCode: productCode
+                }
+            })
+            setToken(message.token)
+            sessionStorage.setItem('userInfo', JSON.stringify(message.userInfo))
+        }
         return true
     } catch (error) {
         console.warn(error)

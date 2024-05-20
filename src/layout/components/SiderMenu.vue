@@ -1,6 +1,7 @@
 <template>
     <a-layout-sider
-        width="200"
+        width="232"
+        class="sider-menu-con"
         style="background: #fff">
         <a-menu
             mode="inline"
@@ -64,4 +65,13 @@ const bindOpenKeys = computed({
 })
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+:deep(.ant-layout-sider-children) {
+    .ant-menu {
+        .ant-menu-item-selected {
+            background-color: #1c5ee5;
+            color: #fff;
+        }
+    }
+}
+</style>

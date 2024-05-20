@@ -8,7 +8,7 @@ const routes = [
         meta: {
             title: '首页',
             icon: 'iconfont icon-telescope',
-            key: 'jhst1'
+            key: 'jhst'
         },
         component: MainLayout,
         redirect: 'home/index1',
@@ -19,7 +19,7 @@ const routes = [
                 meta: {
                     title: '首页1',
                     icon: 'iconfont icon-intelligent',
-                    key: 'jhst-bigScreen1'
+                    key: 'jhst-bigScreen'
                 },
                 component: () => import('@/views/Home/index1.vue')
             },
@@ -36,11 +36,11 @@ const routes = [
             {
                 path: 'child',
                 name: '',
-                redirect: '/Home/child/index',
+                redirect: '/home/child/index',
                 meta: {
                     title: '二级菜单',
                     icon: 'iconfont icon-intelligent',
-                    key: 'jhst1'
+                    key: 'jhst'
                 },
                 component: ChildLayout,
                 children: [
@@ -49,7 +49,7 @@ const routes = [
                         name: '',
                         meta: {
                             title: '三级菜单',
-                            key: 'jhst1',
+                            key: 'jhst',
                             icon: 'iconfont icon-intelligent'
                         },
                         component: () => import('@/views/Home/HomeChild/child.vue')

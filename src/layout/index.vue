@@ -5,6 +5,7 @@
             :headerMenu="headerMenu" />
         <a-layout>
             <SiderMenu
+                v-show="sildbarMenu.length"
                 v-model:selectedCldKey="selectedCldKey"
                 v-model:openKeys="openKeys"
                 :sildbarMenu="sildbarMenu" />

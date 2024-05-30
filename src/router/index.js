@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import defaultRoutes from './default'
+import defaultRoute from './default'
+import componentDemo from './componentDemo'
 import eventEmitter from '@/EventEmitter'
 import { filterRouter } from '@/utils/getAuth'
 
@@ -54,12 +55,16 @@ router.beforeEach((to, from, next) => {
     next()
 })
 
-export let authRoutes = [...defaultRoutes]
+export let authRoutes = [defaultRoute, componentDemo]
 eventEmitter.on('MENU:PERMISSIONS', (permissions) => {
     const permissionsList = permissions.split(',')
-    authRoutes = filterRouter(defaultRoutes, permissionsList)
+    authRoutes = filterRouter(authRoutes, permissionsList)
+
     if (authRoutes.length) {
-        router.addRoute(...authRoutes)
+        authRoutes.forEach((route) => {
+            router.addRoute(route)
+        })
+        console.log(router)
     }
 })
 eventEmitter.on('LOGIN:SUCCESS', () => {

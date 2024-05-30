@@ -20,9 +20,9 @@
                     <a-avatar
                         :size="40"
                         style="background-color: #fff; color: #f56a00"
-                        >USER</a-avatar
+                        >{{ trueName }}</a-avatar
                     >
-                    <div class="user-name">用户名</div>
+                    <div class="user-name">{{ trueName }}</div>
                     <DownOutlined style="color: #fff" />
                 </div>
                 <template #overlay>
@@ -71,6 +71,7 @@ const toAuth = () => {
     }
     window.open(`${url}/drsp-permissions-web/?token=${getToken()}`)
 }
+const { trueName } = JSON.parse(sessionStorage.getItem('userInfo'))
 </script>
 
 <style lang="less" scoped>

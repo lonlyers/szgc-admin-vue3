@@ -24,7 +24,7 @@ export const useTable = (api, initParam, isPageable, dataCallBack) => {
         // 分页数据
         pagination: {
             // 当前页数
-            page: 1,
+            pageNumber: 1,
             // 每页显示条数
             pageSize: 10,
             // 总条数
@@ -39,7 +39,7 @@ export const useTable = (api, initParam, isPageable, dataCallBack) => {
     const pageParam = computed({
         get: () => {
             return {
-                page: state.pagination.page,
+                pageNumber: state.pagination.pageNumber,
                 pageSize: state.pagination.pageSize
             }
         },
@@ -72,7 +72,7 @@ export const useTable = (api, initParam, isPageable, dataCallBack) => {
     }
 
     const search = () => {
-        state.pagination.page = 1
+        state.pagination.pageNumber = 1
 
         getTableData()
     }
@@ -85,13 +85,13 @@ export const useTable = (api, initParam, isPageable, dataCallBack) => {
         reset()
     })
     const handleSizeChange = (val) => {
-        state.pagination.page = 1
+        state.pagination.pageNumber = 1
         state.pagination.pageSize = val
         getTableData()
     }
 
     const handleCurrentChange = (val) => {
-        state.pagination.page = val
+        state.pagination.pageNumber = val
         getTableData()
     }
 

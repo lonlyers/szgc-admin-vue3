@@ -33,7 +33,7 @@ const singleSign = async (tel) => {
         if (haveOtherToken) {
             setToken(haveOtherToken)
             const { message } = await request({
-                url: '/dh-api/api/upms/user/getUserInfo',
+                url: urlProxy + '/api/upms/user/getUserInfo',
                 data: {
                     token: haveOtherToken
                 }
@@ -55,7 +55,7 @@ const singleSign = async (tel) => {
         }
         return true
     } catch (error) {
-        console.warn(error)
+        eventEmitter.emit('LOGIN:SUCCESS')
         return false
     }
 }

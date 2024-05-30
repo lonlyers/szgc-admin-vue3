@@ -59,9 +59,10 @@ const deepWithPath = (routes, parentPath) => {
 }
 const useMenu = (routes) => {
     const cloneRoutes = cloneDeep(routes)
+
     const selectedParKey = ref()
     const selectedCldKey = ref()
-    const openKeys = ref([])
+    // const openKeys = ref([])
     const headerMenu = cloneRoutes.map((el) => {
         return {
             path: el.path,
@@ -69,7 +70,8 @@ const useMenu = (routes) => {
             redirect: el.redirect
         }
     })
-    selectedParKey.value = [headerMenu[0].path]
+    const defaultPath = headerMenu.find((el) => route.path.includes(el.path))?.path
+    selectedParKey.value = [defaultPath || headerMenu[0].path]
     const sildbarMenu = ref()
     watch(
         selectedParKey,
@@ -77,23 +79,29 @@ const useMenu = (routes) => {
             const curRouter = cloneRoutes.find((el) => {
                 return el.path === val[0]
             })
+
             if (curRouter.children) {
-                const filterMenu = curRouter.children.filter((el) => !el.hidden)
+                selectedCldKey.value = [curRouter.redirect]
+                const filterMenu = cloneDeep(curRouter.children.filter((el) => !el.hidden))
                 sildbarMenu.value = deepWithPath(filterMenu, val[0])
             }
         },
         {
-            immediate: true
+            immediate: true,
+            deep: true
         }
     )
     selectedCldKey.value = [route.path]
+
     watch(
         selectedCldKey,
         (val) => {
+            console.log(val)
             router.push(val[0])
         },
         {
-            immediate: true
+            immediate: true,
+            deep: true
         }
     )
 

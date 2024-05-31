@@ -26,6 +26,32 @@ export default defineConfig({
                 drop_console: true,
                 drop_debugger: true
             }
+        },
+        rollupOptions: {
+            output: {
+                entryFileNames: 'js/[name]-[hash].js',
+                chunkFileNames(val) {
+                    if (val.name === 'config') {
+                        return 'js/[name].js'
+                    }
+                    return 'js/[name]-[hash].js'
+                },
+                assetFileNames(asstInfo) {
+                    if (asstInfo.name.endsWith('.css')) {
+                        return 'css/[name]-[hash].css'
+                    }
+                    const imgExts = ['.png', '.jpg', 'jpeg', '.svg', '.gif', '.ico']
+                    if (imgExts.some((ext) => asstInfo.name.endsWith(ext))) {
+                        return 'images/[name]-[hash][extname]'
+                    }
+                    return 'assets/[name]-[hash][extname]'
+                },
+                manualChunks(id) {
+                    if (id.includes('src/config/index.js')) {
+                        return 'config'
+                    }
+                }
+            }
         }
     },
     server: {

@@ -1,38 +1,32 @@
 module.exports = {
     /**
-	 *  默认情况下，ESLint会在所有父级组件中寻找配置文件，一直到根目录。
-	 *  ESLint一旦发现配置文件中有   "root": true，它就会停止在父级目录中寻找。
-	*/
+     *  默认情况下，ESLint会在所有父级组件中寻找配置文件，一直到根目录。
+     *  ESLint一旦发现配置文件中有   "root": true，它就会停止在父级目录中寻找。
+     */
     root: true,
     // 运行环境
-    'env': {
-        'browser': true,
-        'es2021': true,
-        'node': true // node 环境
+    env: {
+        browser: true,
+        es2021: true,
+        node: true // node 环境
     },
     // 此项是用来配置标准的js风格，就是说写代码的时候要规范的写
-    'extends': [
-        'eslint:recommended',
-        'plugin:vue/vue3-essential',
-        'prettier'
-    ],
-    'overrides': [
-    ],
-    'parserOptions': {
-        'ecmaVersion': 'latest',
-        'sourceType': 'module'
+    extends: ['eslint:recommended', 'plugin:vue/vue3-essential', 'prettier'],
+    overrides: [],
+    parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module'
     },
-    'plugins': [
-        'vue'
-    ],
+    plugins: ['vue'],
+    ignores: ['node_modules/**/*.js', 'dist/**/*.js'],
     /**
 		下面这些rules是用来设置从插件来的规范代码的规则
 		"off" 或 0   - 关闭规则
 		"warn" 或 1  - 开启规则，使用警告级别的错误：warn (不会导致程序退出)
 		"error" 或 2 - 开启规则，使用错误级别的错误：error (当被触发的时候，程序会退出)
 	*/
-    'rules': {
-    // vue组件使用多单词命名
+    rules: {
+        // vue组件使用多单词命名
         'vue/multi-word-component-names': [
             0,
             {
@@ -120,10 +114,7 @@ module.exports = {
         // 要求回调函数中有容错处理
         'handle-callback-err': [2, '^(err|error)$'],
         // 强制使用一致的缩进
-        'indent': [
-            'off',
-            4
-        ],
+        indent: ['off', 4],
         // 强制在 JSX 属性中一致地使用双引号或单引号
         'jsx-quotes': [2, 'prefer-single'],
         // 强制在对象字面量的属性中键和值之间使用一致的间距
@@ -409,4 +400,3 @@ module.exports = {
         'array-bracket-spacing': [2, 'never']
     }
 }
-

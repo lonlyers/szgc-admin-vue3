@@ -11,12 +11,12 @@ import singleSign from '@/utils/singleSign'
 import { getAuth } from '@/utils/getAuth'
 import eventEmitter from '@/EventEmitter'
 // 免登录逻辑
-if (process.env.NODE_ENV === 'development') {
+
     singleSign(15036373894).then((val) => {
         getAuth()
         eventEmitter.emit('LOGIN:SUCCESS')
     })
-}
+
 </script>
 
 <style lang="less" scoped>

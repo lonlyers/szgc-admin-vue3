@@ -18,7 +18,7 @@ module.exports = {
         sourceType: 'module'
     },
     plugins: ['vue'],
-    ignores: ['node_modules/**/*.js', 'dist/**/*.js'],
+
     /**
 		下面这些rules是用来设置从插件来的规范代码的规则
 		"off" 或 0   - 关闭规则

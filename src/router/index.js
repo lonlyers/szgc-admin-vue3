@@ -57,7 +57,7 @@ router.beforeEach((to, from, next) => {
 
 export let authRoutes = [defaultRoute, componentDemo]
 eventEmitter.on('MENU:PERMISSIONS', (permissions) => {
-    const permissionsList = permissions.split(',')
+    const permissionsList = permissions?.split(',')
     authRoutes = filterRouter(authRoutes, permissionsList)
 
     if (authRoutes.length) {

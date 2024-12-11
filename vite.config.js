@@ -58,6 +58,13 @@ export default defineConfig({
         open: true,
         host: true,
         proxy: {
+            '/drsp-dev-login': {
+                // 统一登录
+                target: 'http://192.168.2.172:48373',
+                changeOrigin: true,
+                ws: true
+                // pathRewrite: { '^/drsp-auth': '' }
+            },
             '/drsp-api': {
                 // 统一登录
                 target: 'http://192.168.2.229:5300',

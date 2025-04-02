@@ -1,6 +1,4 @@
-import JhWidthPage from './JhWidthPage/index.vue'
-
-const comps = [JhWidthPage]
+const comps = []
 export default {
     install: (Vue) => {
         comps.forEach((comp) => {

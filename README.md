@@ -1,3 +1,3 @@
-# qc-res-admin
+# szgc-admin-vue
+数字工程-后台系统通用模板
 
-钦寸水库后台系统-ui

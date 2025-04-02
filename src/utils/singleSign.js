@@ -1,10 +1,10 @@
-import { URL_PROXY, PRODUCT_CODE } from '@/config'
 import request from './request'
 import { getToken, setToken } from './tokenInfo'
 
+const { URL_PROXY, PRODUCT_CODE } = JSON.parse(localStorage.getItem('configs'))
+
 const ticketUrl = '/api/auth/ssoLogin'
 const devUrl = `/drsp-dev-login/api/upms/login/dev`
-console.log()
 
 // 获取地址栏?后面的参数
 const searchParams = window.location.search
@@ -28,11 +28,12 @@ const queryParams = queryStr
     : {}
 
 const haveTicket = searchParams.ticket || queryParams.ticket
+const haveOtherTicket = searchParams.otherTicket || queryParams.otherTicket
 const haveOtherToken = searchParams.token || queryParams.token
 let haveUserName = searchParams.userName || queryParams.userName
 // 免登
 const singleSign = async (tel) => {
-    if (process.env.NODE_ENV !== 'production') haveUserName = tel
+    // if (process.env.NODE_ENV !== 'production') haveUserName = tel
     if (getToken()) return true
     try {
         if (haveOtherToken) {
@@ -46,8 +47,26 @@ const singleSign = async (tel) => {
             setToken(message.token)
             sessionStorage.setItem('userInfo', JSON.stringify(message))
             sessionStorage.setItem('loginType', 'singleSign')
+
             return true
         }
+
+        if (haveOtherTicket) {
+            const { message } = await request({
+                url: `${URL_PROXY}/api/auth/ssoLogin/third`,
+                data: {
+                    otherTicket: haveOtherTicket,
+                    systemCode: PRODUCT_CODE,
+                    productCode: PRODUCT_CODE
+                }
+            })
+            setToken(message.token)
+            sessionStorage.setItem('userInfo', JSON.stringify(message.userInfo))
+            sessionStorage.setItem('loginType', 'singleSign')
+
+            return true
+        }
+
         if (haveTicket || haveUserName) {
             const { message } = await request({
                 url: haveTicket ? URL_PROXY + ticketUrl : devUrl,
@@ -61,6 +80,7 @@ const singleSign = async (tel) => {
             setToken(message.token)
             sessionStorage.setItem('userInfo', JSON.stringify(message.userInfo))
             sessionStorage.setItem('loginType', 'singleSign')
+
             return true
         }
         return false
@@ -69,4 +89,10 @@ const singleSign = async (tel) => {
     }
 }
 
+// 去除地址栏的ticket和userName参数
+export const removeLocationParams = () => {
+    const { href } = window.location
+    const newUrl = href.split('?')[0] + href.split('#')[0].split('?')[1]
+    window.history.replaceState({}, '', newUrl)
+}
 export default singleSign

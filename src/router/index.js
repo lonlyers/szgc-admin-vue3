@@ -3,6 +3,7 @@ import defaultRoute from './default'
 import componentDemo from './componentDemo'
 import eventEmitter from '@/EventEmitter'
 import { filterRouter } from '@/utils/getAuth'
+import { removeLocationParams } from '@/utils/singleSign'
 
 const router = createRouter({
     // 4. 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。
@@ -64,7 +65,6 @@ eventEmitter.on('MENU:PERMISSIONS', (permissions) => {
         authRoutes.forEach((route) => {
             router.addRoute(route)
         })
-        console.log(router)
     }
 })
 eventEmitter.on('LOGIN:SUCCESS', () => {
@@ -73,6 +73,7 @@ eventEmitter.on('LOGIN:SUCCESS', () => {
     } else {
         router.push('/notMenu')
     }
+    removeLocationParams()
 })
 
 eventEmitter.on('API:UN_AUTH', () => {
